@@ -1,2 +1,2 @@
-pub mod kakuyomu;
-pub mod syosetu;
+pub mod truyenqq;
+pub mod nettruyen;

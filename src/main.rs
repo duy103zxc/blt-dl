@@ -4,7 +4,7 @@ use args::{run, Config};
 
 mod model;
 mod utils;
-mod epub;
+mod manga;
 mod args;
 mod sources;
 

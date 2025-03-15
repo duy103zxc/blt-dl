@@ -12,9 +12,7 @@ impl Kakuyomu {
             String::from(".Gap_size-3s__fjxCP > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)"), 
             String::from("ja"), 
             String::from(".NewBox_padding-pb-m__8mtGc > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)"), 
-            String::from(".widget-episodeTitle"), 
-            String::from(".widget-episode-inner"), 
-            String::from("#contentMain-readNextEpisode") 
+            String::from(".widget-episodeTitle")
         )
     }
 }

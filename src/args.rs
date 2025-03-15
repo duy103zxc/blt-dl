@@ -1,9 +1,7 @@
 use url::Url;
 
-use crate::epub::gen_epub;
+use crate::manga::gen_manga;
 use crate::model::MangaSource;
-use crate::sources::kakuyomu::Kakuyomu;
-use crate::sources::syosetu::Syosetu;
 use std::env;
 use std::error::Error;
 
@@ -51,7 +49,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let manga_metadata = manga_source.fetch_metadata(&config.manga_url)?;
     match config.command.as_str() {
         "get" => {
-            gen_epub(manga_source, manga_metadata)?;
+            gen_manga(manga_source, manga_metadata)?;
         },
         "help" => {
             println!("{}", HELP_MSG);
