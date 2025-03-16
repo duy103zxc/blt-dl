@@ -37,3 +37,10 @@ pub fn fetch_from_internet(url: &str) -> Result<Response<Body>, ureq::Error> {
     Err(ureq::Error::ConnectionFailed)
 }
 
+pub fn absolute_or_relative(host: &str, provided_url: &str) -> String {
+    if provided_url.contains("http://") || provided_url.contains("https://") {
+        String::from(provided_url)
+    } else {
+        format!("{}{}", host, provided_url)
+    }
+}

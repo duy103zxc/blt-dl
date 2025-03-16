@@ -2,6 +2,8 @@ use url::Url;
 
 use crate::manga::gen_manga;
 use crate::model::MangaSource;
+use crate::sources::nettruyen::Nettruyen;
+use crate::sources::truyenqq::TruyenQQ;
 use std::env;
 use std::error::Error;
 
@@ -10,7 +12,7 @@ Tải Manga từ một số trang nhanh hơn
 
 Usage:
     blt-dl get <url>
-    blt-dl get https://ncode.syosetu.com/n6755gk/
+    blt-dl get https://example.com
 Options:
     -h --help       Show this screen.
     -v --version    Show version.
@@ -64,14 +66,14 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
 
 pub fn match_url(url: &str) -> Result<MangaSource, Box<dyn Error>> {
     match Url::parse(url)?.host_str().unwrap() {
-        "kakuyomu.jp" => {
-            Ok(Kakuyomu::gen_info())
+        "nettruyenx.com" => {
+            Ok(Nettruyen::gen_info())
         },
-        "ncode.syosetu.com" | "syosetu.com" => {
-            Ok(Syosetu::gen_info())
-        },
+        "truyenqqto.com" => {
+            Ok(TruyenQQ::gen_info())
+        }
         _ => {
-            Err("No way to be found".into())
+            Err("Khong tim thay".into())
         }
     }
 }

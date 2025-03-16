@@ -10,8 +10,6 @@ impl Nettruyen {
             String::from(".title-detail"), 
             String::from("a.btn-warning:nth-child(1)"), 
             String::from(".reading-detail"),
-            // CSS Selector for images
-            String::from("img"),
             String::from("a.btn-danger:nth-child(2)") 
         )
     }

@@ -2,7 +2,7 @@ use std::error::Error;
 
 use scraper::{Html, Selector};
 
-use crate::utils;
+use crate::utils::{self, absolute_or_relative};
 
 
 // Save selector
@@ -11,7 +11,6 @@ pub struct MangaSource {
     manga_name: String,
     first_chapter: String,
     chap_content: String,
-    img: String,
     next_chapter: String
 }
 
@@ -21,7 +20,7 @@ pub struct MangaMetadata {
 }
 
 pub struct Chapter {
-	pub content: Vec<String>,
+	pub images: Vec<String>,
 	pub next_chapter_url: String,
     pub any_chapter_left: bool
 }
@@ -32,7 +31,6 @@ impl MangaSource {
         manga_name: String, 
         first_chapter: String, 
         chap_content: String, 
-        img: String,
         next_chapter: String 
     ) -> Self {
         Self { 
@@ -40,7 +38,6 @@ impl MangaSource {
             manga_name, 
             first_chapter, 
             chap_content, 
-            img,
             next_chapter 
         }
     }
@@ -57,7 +54,7 @@ impl MangaSource {
         
         Ok(MangaMetadata {
             manga_name,
-            first_chapter_url: format!("{}{}", &self.base_url, first_chapter_url)
+            first_chapter_url: absolute_or_relative(&self.base_url, &first_chapter_url)
         })
     }
 
@@ -70,7 +67,7 @@ impl MangaSource {
 
         let content_selector = Selector::parse(&self.chap_content).unwrap();
         let next_chap_selector = Selector::parse(&self.next_chapter).unwrap();
-        let each_line = Selector::parse("p").unwrap();  
+        let each_line = Selector::parse("img").unwrap();  
         
         match document.select(&next_chap_selector).next() {
             Some(chapter_url) => {
@@ -81,17 +78,15 @@ impl MangaSource {
             },
         }
         
-        ;  
-
         let chap_content = document.select(&content_selector).next().unwrap();
  
         for chap_line in chap_content.select(&each_line) {
-            chap_lines.push(chap_line.text().collect::<String>());
+            chap_lines.push(chap_line.value().attr("src").unwrap().to_string());
         }
 
         Ok(Chapter { 
-            content: chap_lines, 
-            next_chapter_url: format!("{}{}", &self.base_url, next_chapter_url),
+            images: chap_lines, 
+            next_chapter_url: absolute_or_relative(&self.base_url, &next_chapter_url),
             any_chapter_left
         })
     }

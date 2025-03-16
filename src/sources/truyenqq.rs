@@ -1,18 +1,16 @@
 use crate::model::MangaSource;
-pub struct Kakuyomu {}
+pub struct TruyenQQ {}
 
-impl Kakuyomu {
+impl TruyenQQ {
     pub fn gen_info() -> MangaSource {
         MangaSource::new(
             // BaseURL
-            String::from("https://kakuyomu.jp"),
+            String::from("https://truyenqqto.com"),
             // manga_name
-            String::from("h1.Heading_heading__lQ85n"), 
-            // manga_author
-            String::from(".Gap_size-3s__fjxCP > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)"), 
-            String::from("ja"), 
-            String::from(".NewBox_padding-pb-m__8mtGc > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)"), 
-            String::from(".widget-episodeTitle")
+            String::from(".book_other > h1:nth-child(1)"), 
+            String::from(".li01 > a:nth-child(1)"), 
+            String::from(".chapter_content"), 
+            String::from("div.d-flex:nth-child(4) > a:nth-child(2)")
         )
     }
 }
